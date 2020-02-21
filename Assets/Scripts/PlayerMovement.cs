@@ -2,7 +2,6 @@
 
 public class PlayerMovement : MonoBehaviour
 {
-    //Via l'éditeur
     [SerializeField] private Camera camera;
 
     [SerializeField] private Rigidbody rigidbody;
@@ -10,16 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float minDistanceFloor = 1.1f;
     [SerializeField] private float jumpSpeed = 100f;
 
-
-    private Camera _camera;
     private bool _isFalling = false;
     private Vector3 _moveDirection = Vector3.zero;
-
-    private void Start()
-    {
-        //Via le script
-        _camera = Camera.main; //Reviens à faire un GetComponentByTag
-    }
 
     void Update()
     {
@@ -28,9 +19,11 @@ public class PlayerMovement : MonoBehaviour
         _moveDirection.x = Input.GetAxis("Horizontal");
         _moveDirection.z = Input.GetAxis("Vertical");
 
+        //Envoi un rayon vers le sol (down) 
         if (Physics.Raycast(transform.position, Vector3.down, out var hit, Mathf.Infinity))
         {
             _isFalling = (hit.distance > minDistanceFloor);
+
         }
 
         if (Input.GetKey(KeyCode.Space) && !_isFalling)
@@ -40,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
 
         _moveDirection.Normalize();
 
+        //Tourne le player dans la même direction que la caméra
         transform.rotation = Quaternion.Euler(0, camera.transform.rotation.eulerAngles.y, 0f);
     }
 
@@ -50,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
             rigidbody.AddForce(Vector3.up * jumpSpeed);
         }
 
+        //Converti le vecteur en prenant en compte que le transform du player est l'origin du world
         var viewDirection = transform.TransformDirection(new Vector3(_moveDirection.x, 0f, _moveDirection.z));
 
         rigidbody.MovePosition(transform.position
