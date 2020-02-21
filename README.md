@@ -5,6 +5,7 @@ Unity 2018.3.14f1 - Built-in pipeline
 ### Plugins
 - Cinemachine : https://docs.unity3d.com/Packages/com.unity.cinemachine@2.5/manual/index.html
 - DoTween : http://dotween.demigiant.com/documentation.php
+- Post Processing Stack v2 : https://docs.unity3d.com/Packages/com.unity.postprocessing@2.3/manual/index.html (Pour ceux qui utilisent les pipelines URP ou HDRP le post processing est déjà inclus)
 
 ### Components
 
